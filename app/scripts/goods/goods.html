@@ -1,0 +1,82 @@
+<!-- <div class="full-height ng-scope" ui-view=""> -->
+<!-- Container #1 (see wireframe) -->
+<md-toolbar class="nav" layout="row">
+    <h1>Billing - Starter App</h1>
+</md-toolbar>
+<!-- Container #2 -->
+<div flex layout="row">
+    <!-- Container #3 -->
+    <md-sidenav md-is-locked-open="true" class="md-whiteframe-z2 slidebar">
+        <md-list>
+            <!-- List item #1 -->
+            <md-list-item>
+                <md-button ng-click="_ctrl.viewAll()">
+                    <md-icon md-svg-src="./assets/svg/avatar-4.svg" class="avatar"></md-icon>
+                    View All
+                </md-button>
+            </md-list-item>
+            <!-- List item #2 -->
+            <md-list-item>
+                <md-button ng-click="_ctrl.edit()">
+                    <md-icon md-svg-src="./assets/svg/avatar-4.svg" class="avatar"></md-icon>
+                    Edit
+                </md-button>
+            </md-list-item>
+            <md-list-item>
+                <md-button ng-click="_ctrl.edit()">
+                    <md-icon md-svg-src="./assets/svg/avatar-4.svg" class="avatar"></md-icon>
+                    Add
+                </md-button>
+            </md-list-item>
+            <md-list-item>
+                <md-button ng-click="_ctrl.edit()">
+                    <md-icon md-svg-src="./assets/svg/avatar-4.svg" class="avatar"></md-icon>
+                    Billing
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <!-- Container #4 -->
+    <md-content flex id="content">
+        <!-- User details sample -->
+        <div>
+            <md-input-container style="margin-bottom:0">
+                <label>Goods ID</label>
+                <input required name="goodsID" ng-model="_ctrl.goodsID">
+            </md-input-container>
+            <md-input-container style="margin-bottom:0">
+                <label>Quality</label>
+                <input required name="Quality" ng-model="_ctrl.quality">
+            </md-input-container>`
+            <md-button ng-click="_ctrl.addItem()">Add</md-button>
+            <table ng-table="_ctrl.tableParams" class="table">
+                <th class="data-table-title" translate="contact.search-results.column.display-name"> ID</th>
+                <th class="data-table-title" translate="contact.search-results.column.mobile">Name</th>
+                <th class="data-table-title" translate="contact.search-results.column.email">Producer</th>
+                <th class="data-table-title" translate="contact.search-results.column.job-title">Unit</th>
+                <th class="data-table-title" translate="contact.search-results.column.department">Weight</th>
+                <th class="data-table-title" translate="contact.search-results.column.department">Quality</th>
+                <th class="data-table-title" translate="contact.search-results.column.company">Price</th>
+                <th class="data-table-title" translate="contact.search-results.column.company">Cost</th>
+                <tr ng-repeat="goods in $data">
+                    <td data-title="'ID'">{{goods.id}}</td>
+                    <td data-title="'Name'">{{goods.name}}</td>
+                    <td data-title="'Producer'">{{goods.producer}}</td>
+                    <td data-title="'Unit'">{{goods.unit}}</td>
+                    <td data-title="'Weight'">{{goods.weight}}</td>
+                    <td data-title="'Quality'">{{goods.quality}}</td>
+                    <td data-title="'Price'">{{goods.price}}</td>
+                    <td data-title="'Cost'">{{goods.cost}}</td>
+                    <td>
+                        <input type="button" value="Remove" class="btn btn-primary" ng-click="_ctrl.removeRow($index)" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <label>Total</label>
+            <h1>{{_ctrl.total}}</h1>
+        </div>
+    </md-content>
+</div>
+<!-- </div> -->
