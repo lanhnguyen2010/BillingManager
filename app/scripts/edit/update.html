@@ -1,0 +1,58 @@
+<md-dialog aria-label="List dialog">
+    <md-dialog-content>
+        <form name="search_form" class="form-horizontal" role="form" ng-submit="update()">
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="id" class="control-label col-sm-3" translate="goods.search-form.id">Goods ID</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="Goods ID" class="form-control" value="updateGoods.id" ng-model="updateGoods.id" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="name" class="control-label col-sm-3" translate="goods.search-form.name">Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="name" ng-model="updateGoods.name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="producer" class="control-label col-sm-3" translate="goods.search-form.producer">Producer</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="Producer" class="form-control" ng-model="updateGoods.producer" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="unit" class="control-label col-sm-3" translate="goods.search-form.unit">Unit</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="unit" ng-model="updateGoods.unit" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="weight" class="control-label col-sm-3" translate="goods.search-form.weight">Weight</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="Weight" class="form-control" ng-model="updateGoods.weight" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="price" class="control-label col-sm-3" translate="goods.search-form.price">Price</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="price" ng-model="updateGoods.price" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group buttonHolder">
+                    <button ng-show="isUpdate" type="submit" class="btn btn-primary" translate="goods.button.search">
+                        Update
+                    </button>
+                    <button ng-hide="isUpdate" type="submit" class="btn btn-primary" translate="goods.button.search">
+                        Add New
+                    </button>
+                </div>
+            </div>
+        </form>
+    </md-dialog-content>
+</md-dialog>'

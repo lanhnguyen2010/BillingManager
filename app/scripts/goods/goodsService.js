@@ -1,4 +1,4 @@
-(function (){
+(function() {
     'use strict';
     var pg = require('pg');
     var util = require("gulp-util");
@@ -8,117 +8,127 @@
     angular.module('app')
         .service('goodsService', ['$q', GoodsService]);
 
-    function GoodsService($q){
-        return{
+    function GoodsService($q) {
+        return {
             getGoods: getGoods,
-            getById: getGoodsById
-//            getByName: getGoodsByName,
-//            create: createGoods,
-//            destroy: deleteGoods,
-//            update: updateGoods
+            getById: getGoodsById,
+            getByName: getGoodsByName,
+            createGoods: createGoods,
+            searchGoods: searchGoods,
+            delete: deleteGoods,
+            update: updateGoods
         };
 
-        function getGoods(){
+        function getGoods() {
             var deferred = $q.defer();
             var result = [];
             var queryAll = "SELECT * FROM goods ORDER BY id ASC";
-            pg.connect(connectionString, function(err, client, done){
-                if(err) {
-                    done();
-                    deferred.reject(err);
-                }
-                var query = client.query(queryAll);
-                query.on('row', function(row){
-                    result.push(row);
-
-                });
-
-                query.on("end", function(){
-                    done();
-                    deferred.resolve(result);
-                    util.log(result);
-
-                })
-
-            });
+            doQuery(deferred, queryAll, null);
             return deferred.promise;
         }
 
-        function getGoodsById(ID){
+        function getGoodsById(ID) {
             var deferred = $q.defer();
-            var result = [];
-            var queryOne = 'SELECT * FROM goods WHERE id=($1)';
 
-            pg.connect(connectionString, function(err, client, done){
-                if(err) {
+            var queryOne = 'SELECT * FROM goods WHERE id=($1)';
+            doQuery(deferred, queryOne, [ID])
+            return deferred.promise;
+
+        }
+
+        function getGoodsByName(name) {
+            var deferred = $q.defer();
+            var queryName = 'SELECT * FROM goods WHERE name=($1)';
+
+            doQuery(deferred, queryName, [name]);
+            return deferred.promise;
+
+        }
+
+        function doQuery(deferred, queryString, params) {
+            var result = [];
+            pg.connect(connectionString, function(err, client, done) {
+                if (err) {
                     done();
                     deferred.reject(err);
                 }
-                var query = client.query(queryOne,[ID]);
-                query.on('row', function(row){
+                var query = client.query(queryString, params);
+                query.on('row', function(row) {
                     result.push(row);
 
                 });
 
-                query.on("end", function(){
+                query.on("end", function() {
                     done();
                     deferred.resolve(result);
-                    util.log(result);
-
                 })
 
             });
+        }
+
+
+        function createGoods(goods) {
+            var sub = this;
+
+            var deferred = $q.defer();
+            sub.search = [];
+            sub.insertGoods = goods;
+            getGoodsById(goods.id).then(function(goods) {
+                sub.search = [].concat(goods);
+                if (sub.search.length <= 0) {
+                    var queryCreate = "INSERT INTO goods(id, name, producer, unit, weight, price) values($1, $2, $3, $4, $5, $6)";
+                    doQuery(deferred, queryCreate, [sub.insertGoods.id,
+                        sub.insertGoods.name,
+                        sub.insertGoods.producer,
+                        sub.insertGoods.unit,
+                        sub.insertGoods.weight,
+                        sub.insertGoods.price
+                    ]);
+
+                } else {
+                    deferred.reject("Duplicate Goods ID");
+                }
+
+            });
+
             return deferred.promise;
 
         }
-//
-//        function getGoodsByName(name){
-//            var deferred = $q.defer();
-//            var query = 'SELECT * FROM goods WHERE name=($1)';
-//
-//            connection.query(query, [name], function(err, rows){
-//                if(err){
-//                    deferred.reject(err);
-//                }
-//                deferred.resolve(rows);
-//
-//            });
-//            return deferred.promise;
-//
-//        }
-//
-//        function createGoods(goods){
-//            var deferred = $q.defer();
-//            var query = "INSERT INTO goods SET ?";
-//            connection.query(query, goods, function(err, res){
-//                if(err){
-//                    deferred.reject(err);
-//                }
-//                deferred.resolve(res.insertId);
-//            });
-//            return deferred.promise;
-//
-//        }
-//
-//        function deleteGoods(id) {
-//            var deferred = $q.defer();
-//            var query = "DELETE FROM goods WHERE id = ?";
-//            connection.query(query, [id], function (err, res) {
-//                if (err) deferred.reject(err);
-//                deferred.resolve(res.affectedRows);
-//            });
-//            return deferred.promise;
-//        }
-//
-//        function updateGoods(data) {
-//            var deferred = $q.defer();
-//            var query = "UPDATE goods SET name=($1), producer=($2), unit=($4), weight=($5) WHERE id=($6)";
-//            connection.query(query, [data.name, data.producer, data.unit, data.weight, data.price, data.id], function (err, res) {
-//                if (err) deferred.reject(err);
-//                deferred.resolve(res);
-//            });
-//            return deferred.promise;
-//        }
+
+        function searchGoods(criteria) {
+            var deferred = $q.defer();
+            var queryLike;
+            if (criteria.id != '') {
+                queryLike = 'SELECT * FROM goods WHERE id = $1';
+                doQuery(deferred, queryLike, [criteria.id]);
+
+
+            } else if (criteria.price != '') {
+                queryLike = 'SELECT * FROM goods WHERE (name LIKE $1 ) AND (producer LIKE $2) AND (price = $3)';
+                doQuery(deferred, queryLike, [criteria.name + '%', criteria.producer + '%', criteria.price]);
+            } else {
+                console.log('all');
+                queryLike = 'SELECT * FROM goods WHERE (name LIKE $1) AND (producer LIKE $2)';
+                doQuery(deferred, queryLike, [criteria.name + '%', criteria.producer + '%']);
+
+            }
+            return deferred.promise;
+
+        }
+
+        function deleteGoods(id) {
+            var deferred = $q.defer();
+            var queryDelete = "DELETE FROM goods WHERE id = $1";
+            doQuery(deferred, queryDelete, [id]);
+            return deferred.promise;
+        }
+
+        function updateGoods(goods) {
+            var deferred = $q.defer();
+            var queryUpdate = "UPDATE goods SET name=($2), producer=($3), unit=($4), weight=($5), price = ($6) WHERE id=($1)";
+            doQuery(deferred, queryUpdate, [goods.id, goods.name, goods.producer, goods.unit, goods.weight, goods.price]);
+            return deferred.promise;
+        }
 
     }
 })();

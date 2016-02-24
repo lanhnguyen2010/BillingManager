@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app" layout="column">
+
 <head>
     <title>Billing Manager</title>
     <meta charset="utf-8">
@@ -8,9 +9,11 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <!-- build:css assets/css/app.css -->
     <link href="../bower_components/angular-material/angular-material.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <!-- endbuild -->
 </head>
+
 <body>
     <ng-view></ng-view>
     <!-- build:js scripts/vendor.js -->
@@ -19,24 +22,23 @@
     <script src="../bower_components/angular-animate/angular-animate.js"></script>
     <script src="../bower_components/angular-aria/angular-aria.js"></script>
     <script src="../bower_components/angular-material/angular-material.js"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="../bower_components/ng-table/dist/ng-table.min.js"></script>
-
-
-
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/ng-table/dist/ng-table.min.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbuild -->
     <!-- build:app scripts/app.js -->
     <script src="./scripts/app.js"></script>
     <script src="./scripts/customer/customerService.js"></script>
     <script src="./scripts/customer/customerController.js"></script>
-
     <script src="./scripts/goods/goodsController.js"></script>
     <script src="./scripts/goods/goodsService.js"></script>
-
-
-
+    <script src="./scripts/edit/editController.js"></script>
     <!-- endbuild -->
 </body>
+
 </html>

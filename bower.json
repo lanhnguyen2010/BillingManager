@@ -1,17 +1,20 @@
 {
-  "name": "AngularElectron",
-  "version": "0.0.0",
-  "description": "AngularElectron",
-  "main": "app.js",
-  "author": {
-    "name": "itse4",
-    "email": ""
-  },
-  "dependencies": {
-    "angular": "~1.4.4",
-    "angular-material": "~0.10.1",
-    "angular-route": "~1.4.4",
-    "bootstrap": "~3.3.5",
-    "ng-table": "0.5.3"
-  }
+    "name": "AngularElectron",
+    "version": "0.0.0",
+    "description": "AngularElectron",
+    "main": "app.js",
+    "author": {
+        "name": "itse4",
+        "email": ""
+    },
+    "dependencies": {
+        "angular": "~1.4.4",
+        "angular-material": "~0.10.1",
+        "angular-route": "~1.4.4",
+        "bootstrap": "~3.3.5",
+        "ng-table": "0.5.3",
+        "angular-ui-router": "0.2.13",
+        "angular-ui-bootstrap": "0.13.0",
+        "angular-bootstrap":"1.1.2"
+    }
 }
