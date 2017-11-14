@@ -4,6 +4,7 @@
   "description": "AngularElectron",
   "main": "main.js",
   "dependencies": {
+    "gulp": "^3.9.1",
     "mysql": "2.9.0"
   }
 }

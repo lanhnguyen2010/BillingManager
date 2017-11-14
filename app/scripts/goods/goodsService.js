@@ -2,7 +2,7 @@
     'use strict';
     var pg = require('pg');
     var util = require("gulp-util");
-    var connectionString = "postgres://sonar:sonar@localhost/sonar";
+    var connectionString = "postgres://billing:billing@localhost/billing";
     //var connection = pg.connect(connectionString);
 
     angular.module('app')

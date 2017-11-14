@@ -1,5 +1,7 @@
 var pg = require('pg');
-var connectionString = "postgres://sonar:sonar@localhost/sonar";
+var dbUser = "billing";
+var database = "billing";
+var connectionString = "postgres://billing:@localhost:5432/billing";
 
 //this initializes a connection pool
 //it will keep idle connections open for a (configurable) 30 seconds
@@ -28,3 +30,4 @@ pg.connect(connectionString, function(err, client, done) {
   });
 
 });
+pg.end();
